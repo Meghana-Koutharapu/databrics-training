@@ -1,1 +1,1 @@
-
+Today i have learnt about the string matching queries. where we use the 'like' in most of the string queries. it is used to identify the name of the letters where it would be starting of the name and ending of the name and middle of the name by using the '%'.
