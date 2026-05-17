@@ -199,3 +199,24 @@ SELECT
 FROM product_sales
 
 
+QUESTION 8: Insurance Policy Aging
+SELECT 
+    policy_id,
+    
+    UPPER(holder_name) AS holder_name,
+    
+    ROUND(premium_amount) AS rounded_premium,
+    
+    TIMESTAMPDIFF(YEAR, policy_start, policy_end) AS policy_duration_years,
+    
+    DATEDIFF(policy_end, CURDATE()) AS remaining_days,
+    
+    CASE
+        WHEN policy_end < CURDATE() THEN 'Expired'
+        WHEN TIMESTAMPDIFF(YEAR, policy_start, policy_end) >= 3 THEN 'Long Term'
+        ELSE 'Mid Term'
+    END AS policy_status
+
+FROM insurance_policies;
+
+
