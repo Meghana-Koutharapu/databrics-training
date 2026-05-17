@@ -156,3 +156,51 @@ o Medium 8000–15000
 
 o Low otherwise
 
+
+QUESTION 4: Subscription Validity Check
+
+Table Structure
+
+CREATE TABLE subscriptions (
+
+user_id INT,
+
+user_email VARCHAR(100),
+
+start_date DATE,
+
+end_date DATE,
+
+subscription_fee DECIMAL(10,2)
+
+);
+
+Insert Data
+
+INSERT INTO subscriptions VALUES
+
+(1,'karthik@gmail.com','2024-01-01','2025-01-01',12000.50),
+
+(2,'veena@yahoo.com','2024-06-15','2024-12-15',8500.75),
+
+(3,'ravi@hotmail.com','2023-03-01','2024-03-01',15000.90);
+
+Question
+
+For each user:
+
+· Extract email domain
+
+· Calculate subscription duration in months
+
+· Format fee with commas
+
+· Find remaining days from today
+
+· CASE:
+
+o Active
+
+o Expiring Soon (≤30 days)
+
+o Expired
