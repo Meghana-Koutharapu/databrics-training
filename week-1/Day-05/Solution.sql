@@ -77,3 +77,31 @@ SELECT
 FROM customer_spending;
 
 
+-- QUESTION 4: Subscription Validity Check
+
+SELECT 
+    user_id,
+    user_email,
+
+    -- Extract email domain
+    SUBSTRING_INDEX(user_email, '@', -1) AS email_domain,
+
+    -- Calculate subscription duration in months
+    TIMESTAMPDIFF(MONTH, start_date, end_date) AS subscription_duration_months,
+
+    -- Format fee with commas
+    FORMAT(subscription_fee, 2) AS formatted_fee,
+
+    -- Find remaining days from today
+    DATEDIFF(end_date, CURDATE()) AS remaining_days,
+
+    -- Subscription status
+    CASE
+        WHEN end_date < CURDATE() THEN 'Expired'
+        WHEN DATEDIFF(end_date, CURDATE()) <= 30 THEN 'Expiring Soon'
+        ELSE 'Active'
+    END AS subscription_status
+
+FROM subscriptions;
+
+
