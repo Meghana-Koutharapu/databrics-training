@@ -1,48 +1,57 @@
 QUESTION 1: Employee Compensation Classification
-  
-1. Convert emp_name to Upper Case
-SELECT UPPER(emp_name) AS upper_name
-FROM employee_payments;
+  SELECT 
+    emp_id,
 
-2. Convert emp_name to Lower Case
-SELECT LOWER(emp_name) AS lower_name
-FROM employee_payments;
+    -- Name formats
+    UPPER(emp_name) AS upper_name,
+    LOWER(emp_name) AS lower_name,
+    INITCAP(emp_name) AS proper_case_name,
 
-3. Convert emp_name to Proper Case (Initcap / CamelCase)
-SELECT INITCAP(emp_name) AS proper_case_name
-FROM employee_payments;
+    department,
 
-4. Calculate Total Income (base_salary + bonus) with NULL Safe
-SELECT 
-    emp_name,
-    base_salary + COALESCE(bonus,0) AS total_income
-FROM employee_payments;
+    -- Total income with NULL-safe bonus
+    (base_salary + COALESCE(bonus,0)) AS total_income,
 
-5. Round Total Income to Nearest Integer
-SELECT 
-    emp_name,
-    ROUND(base_salary + COALESCE(bonus,0)) AS rounded_income
-FROM employee_payments;
+    -- Rounded total income
+    ROUND(base_salary + COALESCE(bonus,0)) AS rounded_income,
 
-6. Extract Joining Year
-SELECT 
-    emp_name,
-    EXTRACT(YEAR FROM joining_date) AS joining_year
-FROM employee_payments;
+    -- Joining year
+    EXTRACT(YEAR FROM joining_date) AS joining_year,
 
-7. Classify Employees using CASE
-SELECT 
-    emp_name,
-
+    -- Experience classification
     CASE
-        WHEN EXTRACT(YEAR FROM CURRENT_DATE) - EXTRACT(YEAR FROM joining_date) > 7
+        WHEN EXTRACT(YEAR FROM CURRENT_DATE) - EXTRACT(YEAR FROM joining_date) > 7 
             THEN 'Senior'
 
         WHEN EXTRACT(YEAR FROM CURRENT_DATE) - EXTRACT(YEAR FROM joining_date) 
-             BETWEEN 4 AND 7
+             BETWEEN 4 AND 7 
             THEN 'Mid'
 
         ELSE 'Junior'
     END AS employee_level
 
 FROM employee_payments;
+
+
+QUESTION 2: Order Delivery Delay Analysis
+
+SELECT 
+    order_id,
+    UPPER(customer_name) AS customer_name,
+    
+    COALESCE(delivery_date, CURDATE()) AS delivery_date,
+    
+    DATEDIFF(COALESCE(delivery_date, CURDATE()), order_date) AS delivery_days,
+    
+    TRUNCATE(order_amount, 1) AS order_amount,
+    
+    CASE
+        WHEN delivery_date IS NULL THEN 'Pending'
+        WHEN DATEDIFF(delivery_date, order_date) = 0 THEN 'Same-day'
+        WHEN DATEDIFF(delivery_date, order_date) > 3 THEN 'Delayed'
+        ELSE 'On Time'
+    END AS delivery_status
+
+FROM orders_delivery;
+
+
