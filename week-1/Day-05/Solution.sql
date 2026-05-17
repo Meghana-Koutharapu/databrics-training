@@ -256,3 +256,29 @@ SELECT
 FROM salary_revision;
 
 
+QUESTION 10: Customer Account Status Evaluation
+SELECT 
+    account_id,
+    
+    UPPER(customer_name) AS customer_name,
+    
+    ABS(balance) AS absolute_balance,
+    
+    DATEDIFF(CURDATE(), last_transaction) AS days_since_last_transaction,
+    
+    CONCAT(
+        UPPER(LEFT(branch,1)),
+        LOWER(SUBSTRING(branch,2))
+    ) AS proper_case_branch,
+    
+    SIGN(balance) AS balance_sign,
+    
+    CASE
+        WHEN balance < 0 THEN 'Overdrawn'
+        WHEN DATEDIFF(CURDATE(), last_transaction) > 365 THEN 'Dormant'
+        ELSE 'Active'
+    END AS account_status
+
+FROM bank_accounts;
+
+
