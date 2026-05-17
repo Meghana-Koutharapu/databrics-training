@@ -33,3 +33,35 @@ INSERT INTO employee_payments VALUES
 
 (5,'suresh','HR',60000.55,3000.30,'2022-11-25');
 
+
+QUESTION 2: Order Delivery Delay Analysis
+
+Table Structure
+
+CREATE TABLE orders_delivery (
+
+order_id INT,
+
+customer_name VARCHAR(50),
+
+order_date DATE,
+
+delivery_date DATE,
+
+order_amount DECIMAL(10,2)
+
+);
+
+Insert Data
+
+INSERT INTO orders_delivery VALUES
+
+(101,'rajesh','2025-01-01','2025-01-05',12500.75),
+
+(102,'meena','2025-01-10','2025-01-10',8400.40),
+
+(103,'arun','2025-01-15','2025-01-20',15600.90),
+
+(104,'pooja','2025-01-18',NULL,9200.10);
+
+
