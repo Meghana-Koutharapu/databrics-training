@@ -105,3 +105,43 @@ SELECT
 FROM subscriptions;
 
 
+QUESTION 5: Loan EMI Risk Categorization
+SELECT 
+    loan_id,
+    
+    UPPER(customer_name) AS customer_name,
+    
+    loan_amount,
+    
+    interest_rate,
+    
+    loan_start,
+    
+    TIMESTAMPDIFF(YEAR, loan_start, CURDATE()) AS years_since_loan_start,
+    
+    ROUND(
+        (
+            loan_amount * 
+            (interest_rate / 12 / 100) * 
+            POWER((1 + (interest_rate / 12 / 100)), 12 * 5)
+        ) /
+        (
+            POWER((1 + (interest_rate / 12 / 100)), 12 * 5) - 1
+        ),
+        2
+    ) AS emi,
+    
+    ROUND(
+        loan_amount * POWER((1 + interest_rate / 100), 1/12.0) - loan_amount,
+        2
+    ) AS monthly_interest,
+    
+    CASE
+        WHEN interest_rate > 9 THEN 'High Risk'
+        WHEN interest_rate BETWEEN 8 AND 9 THEN 'Medium Risk'
+        ELSE 'Low Risk'
+    END AS risk_category
+
+FROM loan_details;
+
+
