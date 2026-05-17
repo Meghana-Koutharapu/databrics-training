@@ -302,3 +302,55 @@ o Excellent ≥90%
 o Average 75–89%
 
 o Poor otherwise
+
+
+QUESTION 7: Product Discount Validation
+
+Table Structure
+
+CREATE TABLE product_sales (
+
+product_id INT,
+
+product_name VARCHAR(50),
+
+mrp DECIMAL(10,2),
+
+selling_price DECIMAL(10,2),
+
+sale_date DATE
+
+);
+
+Insert Data
+
+INSERT INTO product_sales VALUES
+
+(1,'Laptop',75000.75,68000.50,'2025-01-10'),
+
+(2,'Mobile',35000.40,33000.25,'2025-01-12'),
+
+(3,'Tablet',25000.90,26000.75,'2025-01-15');
+
+Question
+
+Derive:
+
+· Discount amount (absolute)
+
+· Discount percentage
+
+· Day name of sale
+
+· Proper case product name
+
+· CASE:
+
+o Valid Discount
+
+o Overpriced
+
+o No Discount
+
+
+
