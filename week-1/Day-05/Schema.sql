@@ -451,4 +451,50 @@ o Moderate
 o No Increment
 
 
+QUESTION 10: Customer Account Status Evaluation
 
+Table Structure
+
+CREATE TABLE bank_accounts (
+
+account_id INT,
+
+customer_name VARCHAR(50),
+
+balance DECIMAL(12,2),
+
+last_transaction DATE,
+
+branch VARCHAR(30)
+
+);
+
+Insert Data
+
+INSERT INTO bank_accounts VALUES
+
+(501,'ramesh',125000.75,'2024-12-20','hyderabad'),
+
+(502,'sita',8500.40,'2023-06-15','delhi'),
+
+(503,'manoj',-2500.90,'2025-01-05','mumbai');
+
+Question
+
+Determine:
+
+· Absolute balance
+
+· Days since last transaction
+
+· Proper case branch name
+
+· Sign of balance
+
+· CASE:
+
+o Active
+
+o Dormant
+
+o Overdrawn
