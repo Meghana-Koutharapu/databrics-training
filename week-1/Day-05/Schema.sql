@@ -402,4 +402,53 @@ o Mid Term
 o Expired
 
 
+QUESTION 9: Salary Increment Simulation
+
+Table Structure
+
+CREATE TABLE salary_revision (
+
+emp_id INT,
+
+emp_name VARCHAR(50),
+
+current_salary DECIMAL(10,2),
+
+rating INT,
+
+last_hike DATE
+
+);
+
+Insert Data
+
+INSERT INTO salary_revision VALUES
+
+(1,'karthik',75000.75,5,'2023-01-01'),
+
+(2,'veena',65000.40,4,'2024-01-01'),
+
+(3,'ravi',85000.90,3,'2022-01-01');
+
+Question
+
+Calculate:
+
+· Years since last hike
+
+· Increment using rating logic
+
+· New salary (rounded)
+
+· Lowercase name
+
+· CASE:
+
+o High Increment
+
+o Moderate
+
+o No Increment
+
+
 
