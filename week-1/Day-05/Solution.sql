@@ -220,3 +220,39 @@ SELECT
 FROM insurance_policies;
 
 
+QUESTION 9: Salary Increment Simulation
+SELECT 
+    emp_id,
+    
+    LOWER(emp_name) AS employee_name,
+    
+    current_salary,
+    
+    rating,
+    
+    TIMESTAMPDIFF(YEAR, last_hike, CURDATE()) AS years_since_last_hike,
+    
+    CASE
+        WHEN rating = 5 THEN current_salary * 0.20
+        WHEN rating = 4 THEN current_salary * 0.10
+        ELSE 0
+    END AS increment_amount,
+    
+    ROUND(
+        current_salary +
+        CASE
+            WHEN rating = 5 THEN current_salary * 0.20
+            WHEN rating = 4 THEN current_salary * 0.10
+            ELSE 0
+        END, 2
+    ) AS new_salary,
+    
+    CASE
+        WHEN rating = 5 THEN 'High Increment'
+        WHEN rating = 4 THEN 'Moderate'
+        ELSE 'No Increment'
+    END AS increment_status
+
+FROM salary_revision;
+
+
