@@ -204,3 +204,54 @@ o Active
 o Expiring Soon (≤30 days)
 
 o Expired
+
+
+QUESTION 5: Loan EMI Risk Categorization
+
+Table Structure
+
+CREATE TABLE loan_details (
+
+loan_id INT,
+
+customer_name VARCHAR(50),
+
+loan_amount DECIMAL(12,2),
+
+interest_rate DECIMAL(5,2),
+
+loan_start DATE
+
+);
+
+Insert Data
+
+INSERT INTO loan_details VALUES
+
+(201,'suresh',500000.75,8.5,'2022-01-10'),
+
+(202,'mahesh',750000.40,9.2,'2021-05-20'),
+
+(203,'anita',300000.90,7.8,'2023-07-01');
+
+Question
+
+Compute:
+
+· Monthly interest using power function
+
+· Years since loan start
+
+· Round EMI
+
+· Uppercase customer name
+
+· CASE:
+
+o High Risk if interest > 9
+
+o Medium Risk
+
+o Low Risk
+
+
