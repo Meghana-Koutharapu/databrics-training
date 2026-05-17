@@ -255,3 +255,50 @@ o Medium Risk
 o Low Risk
 
 
+QUESTION 6: Employee Attendance Evaluation
+
+Table Structure
+
+CREATE TABLE attendance (
+
+emp_id INT,
+
+emp_name VARCHAR(50),
+
+total_days INT,
+
+present_days INT,
+
+record_date DATE
+
+);
+
+Insert Data
+
+INSERT INTO attendance VALUES
+
+(1,'karthik',30,28,'2025-01-31'),
+
+(2,'veena',30,22,'2025-01-31'),
+
+(3,'ravi',30,18,'2025-01-31');
+
+Question
+
+Calculate:
+
+· Attendance percentage (rounded)
+
+· Month name
+
+· Difference between total and present days
+
+· Lowercase employee name
+
+· CASE:
+
+o Excellent ≥90%
+
+o Average 75–89%
+
+o Poor otherwise
