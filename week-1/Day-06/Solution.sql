@@ -1,4 +1,4 @@
-
+LEVEL-O1
 QUESTION 1 – Salary Risk Flagging Based on Tax Shock
 SELECT 
     emp_id,
