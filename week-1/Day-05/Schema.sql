@@ -353,4 +353,53 @@ o Overpriced
 o No Discount
 
 
+QUESTION 8: Insurance Policy Aging
+
+Table Structure
+
+CREATE TABLE insurance_policies (
+
+policy_id INT,
+
+holder_name VARCHAR(50),
+
+premium_amount DECIMAL(10,2),
+
+policy_start DATE,
+
+policy_end DATE
+
+);
+
+Insert Data
+
+INSERT INTO insurance_policies VALUES
+
+(301,'arjun',12000.50,'2023-01-01','2026-01-01'),
+
+(302,'megha',8500.75,'2022-06-15','2025-06-15'),
+
+(303,'vinod',15000.90,'2021-03-01','2024-03-01');
+
+Question
+
+Show:
+
+· Policy duration in years
+
+· Remaining days
+
+· Rounded premium
+
+· Uppercase holder name
+
+· CASE:
+
+o Long Term
+
+o Mid Term
+
+o Expired
+
+
 
