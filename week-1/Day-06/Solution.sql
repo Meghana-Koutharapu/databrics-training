@@ -341,3 +341,213 @@ SELECT
         ELSE 'Calendar Drift'
     END AS status
 FROM salary_calendar;
+
+
+LEVEL-02
+QUESTION 1 – Employee Login Discipline & Performance Classification
+SELECT
+    emp_id,
+    CONCAT(UCASE(LEFT(emp_name,1)),
+           LCASE(SUBSTRING(emp_name,2))) AS emp_name,
+
+    CASE
+        WHEN DAYOFWEEK(login_time) IN (1,7)
+        THEN 'Weekend'
+        ELSE 'Weekday'
+    END AS login_day_type,
+
+    ROUND(
+        TIMESTAMPDIFF(MINUTE, login_time, logout_time) / 60,
+        2
+    ) AS working_hours,
+
+    CASE
+        WHEN DAYOFWEEK(login_time) NOT IN (1,7)
+             AND TIMESTAMPDIFF(MINUTE, login_time, logout_time)/60 >= 8
+        THEN 'Good Performer'
+
+        WHEN DAYOFWEEK(login_time) NOT IN (1,7)
+             AND TIMESTAMPDIFF(MINUTE, login_time, logout_time)/60 < 6
+        THEN 'Bad Performer'
+
+        ELSE 'Weekend Login'
+    END AS performance_status
+
+FROM employee_login;
+
+
+
+QUESTION 2 – Past 7 Days Attendance & Productivity Check
+SELECT
+    emp_id,
+    UPPER(emp_name) AS emp_name,
+
+    CASE
+        WHEN login_date >= CURDATE() - INTERVAL 7 DAY
+        THEN 'Within Last 7 Days'
+        ELSE 'Older Record'
+    END AS attendance_status,
+
+    CASE
+        WHEN DAYOFWEEK(login_date) IN (1,7)
+        THEN 'Weekend'
+        ELSE 'Weekday'
+    END AS day_type,
+
+    TIMEDIFF(logout_time, login_time) AS working_hours,
+
+    CASE
+        WHEN login_date >= CURDATE() - INTERVAL 7 DAY
+             AND TIMESTAMPDIFF(HOUR,
+                    CONCAT(login_date,' ',login_time),
+                    CONCAT(login_date,' ',logout_time)) >= 8
+        THEN 'Active & Productive'
+
+        WHEN login_date >= CURDATE() - INTERVAL 7 DAY
+             AND TIMESTAMPDIFF(HOUR,
+                    CONCAT(login_date,' ',login_time),
+                    CONCAT(login_date,' ',logout_time)) < 8
+        THEN 'Active but Low Hours'
+
+        ELSE 'Absent from Last 7 Days'
+    END AS productivity_status
+
+FROM attendance_log;
+
+
+
+QUESTION 3 – Weekend Work Abuse Detection
+SELECT
+    emp_id,
+    DAYNAME(work_date) AS day_name,
+    LOWER(emp_name) AS emp_name,
+
+    ROUND(
+        TIMESTAMPDIFF(MINUTE,
+            CONCAT(work_date,' ',login_time),
+            CONCAT(work_date,' ',logout_time)
+        ) / 60,
+        2
+    ) AS working_hours,
+
+    CEIL(
+        TIMESTAMPDIFF(MINUTE,
+            CONCAT(work_date,' ',login_time),
+            CONCAT(work_date,' ',logout_time)
+        ) / 60
+    ) AS ceil_hours,
+
+    CASE
+        WHEN DAYOFWEEK(work_date) IN (1,7)
+             AND TIMESTAMPDIFF(MINUTE,
+                    CONCAT(work_date,' ',login_time),
+                    CONCAT(work_date,' ',logout_time)
+                 ) / 60 >= 8
+        THEN 'Weekend Overtime'
+
+        WHEN DAYOFWEEK(work_date) IN (1,7)
+             AND TIMESTAMPDIFF(MINUTE,
+                    CONCAT(work_date,' ',login_time),
+                    CONCAT(work_date,' ',logout_time)
+                 ) / 60 < 4
+        THEN 'Suspicious Login'
+
+        ELSE 'Normal Working Day'
+    END AS work_status
+
+FROM weekend_monitor;
+
+
+
+QUESTION 4 – Login Time Deviation & Discipline Score
+SELECT
+    emp_id,
+
+    HOUR(login_datetime) AS login_hour,
+
+    TIMESTAMPDIFF(MINUTE,
+        login_datetime,
+        logout_datetime
+    ) / 60 AS total_working_hours,
+
+    TRUNCATE(
+        TIMESTAMPDIFF(MINUTE,
+            login_datetime,
+            logout_datetime
+        ) / 60,
+        1
+    ) AS truncated_hours,
+
+    DAYNAME(login_datetime) AS weekday_name,
+
+    CASE
+        WHEN DAYOFWEEK(login_datetime) NOT IN (1,7)
+             AND HOUR(login_datetime) < 9
+             AND TIMESTAMPDIFF(MINUTE,
+                    login_datetime,
+                    logout_datetime
+                 ) / 60 >= 8
+        THEN 'Disciplined'
+
+        WHEN DAYOFWEEK(login_datetime) NOT IN (1,7)
+             AND HOUR(login_datetime) > 10
+        THEN 'Late Comer'
+
+        ELSE 'Poor Discipline'
+    END AS discipline_status
+
+FROM login_discipline;
+
+
+
+QUESTION 5 – Absenteeism vs Performance Correlation
+SELECT
+    emp_id,
+    emp_name,
+
+    CASE
+        WHEN work_date >= CURDATE() - INTERVAL 7 DAY
+        THEN 'Recent Record'
+        ELSE 'Old Record'
+    END AS record_status,
+
+    CASE
+        WHEN DAYOFWEEK(work_date) IN (1,7)
+        THEN 'Weekend'
+        ELSE 'Weekday'
+    END AS day_type,
+
+    ROUND(
+        TIMESTAMPDIFF(MINUTE,
+            CONCAT(work_date,' ',login_time),
+            CONCAT(work_date,' ',logout_time)
+        ) / 60,
+        2
+    ) AS total_hours,
+
+    FLOOR(
+        TIMESTAMPDIFF(MINUTE,
+            CONCAT(work_date,' ',login_time),
+            CONCAT(work_date,' ',logout_time)
+        ) / 60
+    ) AS floor_hours,
+
+    CASE
+        WHEN work_date >= CURDATE() - INTERVAL 7 DAY
+             AND DAYOFWEEK(work_date) NOT IN (1,7)
+             AND TIMESTAMPDIFF(MINUTE,
+                    CONCAT(work_date,' ',login_time),
+                    CONCAT(work_date,' ',logout_time)
+                 ) / 60 >= 8
+        THEN 'Consistent Performer'
+
+        WHEN TIMESTAMPDIFF(MINUTE,
+                CONCAT(work_date,' ',login_time),
+                CONCAT(work_date,' ',logout_time)
+             ) / 60 < 6
+        THEN 'Irregular Performer'
+
+        ELSE 'Absent / Old Record'
+    END AS performance_status
+
+FROM performance_tracker;
