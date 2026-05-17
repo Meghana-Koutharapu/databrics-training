@@ -145,3 +145,29 @@ SELECT
 FROM loan_details;
 
 
+QUESTION 6: Employee Attendance Evaluation
+SELECT 
+    emp_id,
+    LOWER(emp_name) AS employee_name,
+    total_days,
+    present_days,
+    
+    -- Attendance Percentage
+    ROUND((present_days * 100.0) / total_days, 2) AS attendance_percentage,
+    
+    -- Month Name
+    MONTHNAME(record_date) AS month_name,
+    
+    -- Difference between total and present days
+    (total_days - present_days) AS absent_days,
+    
+    -- Attendance Status
+    CASE
+        WHEN (present_days * 100.0) / total_days >= 90 THEN 'Excellent'
+        WHEN (present_days * 100.0) / total_days BETWEEN 75 AND 89.99 THEN 'Average'
+        ELSE 'Poor'
+    END AS attendance_status
+
+FROM attendance;
+
+
