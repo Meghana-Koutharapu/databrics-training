@@ -171,3 +171,31 @@ SELECT
 FROM attendance;
 
 
+QUESTION 7: Product Discount Validation
+SELECT 
+    product_id,
+
+    CONCAT(
+        UPPER(LEFT(product_name,1)),
+        LOWER(SUBSTRING(product_name,2))
+    ) AS proper_product_name,
+
+    mrp,
+
+    selling_price,
+
+    ROUND(mrp - selling_price, 2) AS discount_amount,
+
+    ROUND(((mrp - selling_price) / mrp) * 100, 2) AS discount_percentage,
+
+    DAYNAME(sale_date) AS sale_day,
+
+    CASE
+        WHEN selling_price < mrp THEN 'Valid Discount'
+        WHEN selling_price > mrp THEN 'Overpriced'
+        ELSE 'No Discount'
+    END AS discount_status
+
+FROM product_sales
+
+
