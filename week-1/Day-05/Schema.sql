@@ -34,23 +34,14 @@ INSERT INTO employee_payments VALUES
 (5,'suresh','HR',60000.55,3000.30,'2022-11-25');
 
 Question
-
 For each employee:
-
 · Convert emp_name to proper case ---upper /lower ---Initcap (CamelCase)
-
 · Calculate total income = base_salary + bonus (NULL safe) +
-
 · Round total income to nearest integer
-
 · Extract joining year
-
 · Use CASE to classify:
-
 o Senior if experience > 7 years
-
 o Mid if between 4 and 7
-
 o Junior otherwise
 
 
@@ -86,23 +77,14 @@ INSERT INTO orders_delivery VALUES
 (104,'pooja','2025-01-18',NULL,9200.10);
 
 Question
-
 For each order:
-
 · Uppercase customer name
-
 · Calculate delivery days using date difference
-
 · Replace NULL delivery date with today
-
 · Truncate order amount to 1 decimal
-
 · Use CASE:
-
 o Same-day
-
 o Delayed (>3 days)
-
 o Pending
 
   
@@ -137,23 +119,14 @@ INSERT INTO customer_spending VALUES
 (4,'kavya','chennai',6000.10,'2024-10-05');
 
 Question
-
 Display:
-
 · Customer name with first letter capitalized
-
 · Month name of purchase
-
 · Rounded purchase amount
-
 · Absolute value of purchase (defensive logic)
-
 · CASE:
-
 o High spender > 15000
-
 o Medium 8000–15000
-
 o Low otherwise
 
 
@@ -186,23 +159,14 @@ INSERT INTO subscriptions VALUES
 (3,'ravi@hotmail.com','2023-03-01','2024-03-01',15000.90);
 
 Question
-
 For each user:
-
 · Extract email domain
-
 · Calculate subscription duration in months
-
 · Format fee with commas
-
 · Find remaining days from today
-
 · CASE:
-
 o Active
-
 o Expiring Soon (≤30 days)
-
 o Expired
 
 
@@ -235,23 +199,14 @@ INSERT INTO loan_details VALUES
 (203,'anita',300000.90,7.8,'2023-07-01');
 
 Question
-
 Compute:
-
 · Monthly interest using power function
-
 · Years since loan start
-
 · Round EMI
-
 · Uppercase customer name
-
 · CASE:
-
 o High Risk if interest > 9
-
 o Medium Risk
-
 o Low Risk
 
 
@@ -284,23 +239,14 @@ INSERT INTO attendance VALUES
 (3,'ravi',30,18,'2025-01-31');
 
 Question
-
 Calculate:
-
 · Attendance percentage (rounded)
-
 · Month name
-
 · Difference between total and present days
-
 · Lowercase employee name
-
 · CASE:
-
 o Excellent ≥90%
-
 o Average 75–89%
-
 o Poor otherwise
 
 
@@ -333,23 +279,14 @@ INSERT INTO product_sales VALUES
 (3,'Tablet',25000.90,26000.75,'2025-01-15');
 
 Question
-
 Derive:
-
 · Discount amount (absolute)
-
 · Discount percentage
-
 · Day name of sale
-
 · Proper case product name
-
 · CASE:
-
 o Valid Discount
-
 o Overpriced
-
 o No Discount
 
 
@@ -382,23 +319,14 @@ INSERT INTO insurance_policies VALUES
 (303,'vinod',15000.90,'2021-03-01','2024-03-01');
 
 Question
-
 Show:
-
 · Policy duration in years
-
 · Remaining days
-
 · Rounded premium
-
 · Uppercase holder name
-
 · CASE:
-
 o Long Term
-
 o Mid Term
-
 o Expired
 
 
@@ -431,23 +359,14 @@ INSERT INTO salary_revision VALUES
 (3,'ravi',85000.90,3,'2022-01-01');
 
 Question
-
 Calculate:
-
 · Years since last hike
-
 · Increment using rating logic
-
 · New salary (rounded)
-
 · Lowercase name
-
 · CASE:
-
 o High Increment
-
 o Moderate
-
 o No Increment
 
 
@@ -480,21 +399,14 @@ INSERT INTO bank_accounts VALUES
 (503,'manoj',-2500.90,'2025-01-05','mumbai');
 
 Question
-
 Determine:
-
 · Absolute balance
-
 · Days since last transaction
-
 · Proper case branch name
-
 · Sign of balance
-
 · CASE:
-
 o Active
-
 o Dormant
-
 o Overdrawn
+
+
